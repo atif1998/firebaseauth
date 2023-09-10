@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
-export default function UserData({ onUserDataSubmit }) {
+export default function UserData() {
   const email = localStorage.getItem("email");
   const [data, setData] = useState([]);
 
@@ -14,9 +14,7 @@ export default function UserData({ onUserDataSubmit }) {
   }, [email]);
 
   const logout = () => {
-    localStorage.clear();
     window.location.reload();
-    onUserDataSubmit();
   };
   const getData = async () => {
     try {
@@ -24,7 +22,6 @@ export default function UserData({ onUserDataSubmit }) {
         `http://localhost:8090/api/user/getByEmail/?email=${email}`
       );
       setData(res.data);
-      onUserDataSubmit();
     } catch (err) {
       console.log("Error:", err);
     }
@@ -34,7 +31,7 @@ export default function UserData({ onUserDataSubmit }) {
     <div>
       {data.map((i) => (
         <div
-          key={i.email}
+          key={i.id}
           style={{
             padding: 16,
             border: 2,

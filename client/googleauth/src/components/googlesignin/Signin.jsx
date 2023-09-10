@@ -93,7 +93,7 @@ function SignIn() {
         justifyContent: "center",
       }}
     >
-      {!isSignedIn ? (
+      {!isSignedIn && !userDataSubmitted ? (
         <div>
           <h1
             style={{
@@ -147,7 +147,7 @@ function SignIn() {
           </Button>
         </div>
       ) : userDataSubmitted ? (
-        <UserData onUserDataSubmit={() => setUserDataSubmitted(true)} />
+        <UserData />
       ) : (
         <Home />
       )}

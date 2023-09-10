@@ -50,12 +50,14 @@ function Home({}) {
     try {
       const email = localStorage.getItem("email");
       console.log("email", email);
+      setIsDataSubmitted(true);
       const res = await axios.post("http://localhost:8090/api/user/register", {
         age: formik.values.age,
         gender: formik.values.gender,
         email: email,
+        isDataSubmitted: isDataSubmitted,
       });
-      setIsDataSubmitted(true);
+
       console.log(res);
     } catch (err) {
       console.log("failed to register", err);
@@ -64,7 +66,7 @@ function Home({}) {
 
   return (
     <div>
-      {!isDataSubmitted ? (
+      {!isDataSubmitted && showFieldForm ? (
         <div>
           <h1>Welcome to your new journer</h1>
           <form onSubmit={formik.handleSubmit}>
@@ -127,7 +129,7 @@ function Home({}) {
           </Button>
         </div>
       ) : (
-        <UserData id={() => setIsDataSubmitted(true)} />
+        <UserData />
       )}
     </div>
   );
